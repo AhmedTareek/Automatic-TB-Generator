@@ -58,3 +58,6 @@ module shifter(
     end
   assign value[4:0] = r1[4:0];
 endmodule
+ moduleegg
+ dnuaoeifncio
+ endmoduleegg

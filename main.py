@@ -13,8 +13,8 @@ class Parser:
         b = 0
         modules = []
         while a >= 0 and b >= 0:
-            a = x.find(" module", a)
-            b = x.find(" endmodule", a)
+            a = x.find(" module ", a)
+            b = x.find(" endmodule ", a)
             if a >= 0 and b >= 0:
                 modules.append(x[a:b])
             a = b
