@@ -17,8 +17,8 @@ endmodule
 module serializer(
   input clk,
   input load,
-  input reg[7:0] in_value,
-  output reg o_bit);
+  input reg [7:0] in_value,
+  output reg o_bit  )    ;
   reg[7:0] r1;
   always @(posedge clk)
     begin
@@ -33,12 +33,12 @@ module serializer(
         end
     end
 endmodule
-module shifter(
+module shifter (
   input clk,
   input load,
   input right,
   input left,
-  input[4:0] in_value,
+  input [4:0] in_value,
   output reg[4:0] value);
   reg [4:0]r1;
   always @(posedge clk)
