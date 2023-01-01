@@ -1,4 +1,6 @@
 import re
+
+
 class Parser:
     def __init__(self):
         self.modules = []
@@ -8,7 +10,7 @@ class Parser:
         s = f.read()
         s = s.split('\n')
         temp = " "
-        x = " " + temp.join(s)
+        x = " " + temp.join(s) + " "
         a = 0
         b = 0
         modules = []
@@ -22,14 +24,16 @@ class Parser:
         self.modules = modules
         return modules
 
-class Module:
-    def __init__(self,module):
-        self.module = module
-        self.inputs = self.get_inputs()
-        self.outputs = self.get_outputs()
-        self.module_name = self.get_module_name()
 
-    def get_module_name(self):
+class Module:
+    def __init__(self, module):
+        self.module = module
+        self.inputs = self.__get_inputs()
+        self.outputs = self.__get_outputs()
+        self.module_name = self.__get_module_name()
+        self.always_blocks = self.__get_always_blocks()
+
+    def __get_module_name(self):
         module = self.module.split(';')
         operation = module[0]
         operation = operation.strip(" ")
@@ -40,7 +44,7 @@ class Module:
         self.module_name = module_name
         return module_name
 
-    def get_inputs(self,):
+    def __get_inputs(self, ):
         module = self.module.split(';')
         operation = module[0]
         operation = operation.strip(" ")
@@ -68,7 +72,7 @@ class Module:
         self.inputs = inputs
         return inputs
 
-    def get_outputs(self, ):
+    def __get_outputs(self, ):
         module = self.module.split(';')
         operation = module[0]
         operation = operation.strip(" ")
@@ -96,19 +100,37 @@ class Module:
         self.outputs = outputs
         return outputs
 
+    def __get_always_blocks(self, ):
+        list_of_always_blocks = []
+        module = self.module
+        ans = re.search(r"(always)\s*@", module)
+        while ans:
+            module = module[ans.start():] + " "
+            start = module.find(" begin ")
+            a = module.find(" begin ", start)
+            b = module.find(" end ")
+            temp = start + 1
+            u = start + 1
+            while b > a and (a >= 0):
+                a = module.find(" begin ", u)  # match every begin and end until you find end without a begin
+                u = a + 1
+                if a == -1: break
+                b = module.find(" end ", temp)
+                temp = b + 1
+            list_of_always_blocks.append(module[:b + 4])
+            module = module[b + 4:]
+            ans = re.search(r"(always)\s*@", module)
+        return list_of_always_blocks
+
 
 def main():
     p1 = Parser()
-    x = p1.parse_modules("testing.txt")[4]
-    op = Module(x)
-    print(x)
-    op.get_module_name()
-    print(op.get_outputs())
-    print(op.get_inputs())
-    print(op.get_module_name())
-    print(op.module_name)
-    print(op.inputs)
-    print(op.outputs)
+    x = p1.parse_modules("testing.txt")[3]
+    m1 = Module(x)
+    print(m1.module_name)
+    print(m1.inputs)
+    print(m1.outputs)
+    print(m1.always_blocks)
 
 
 # Press the green button in the gutter to run the script.

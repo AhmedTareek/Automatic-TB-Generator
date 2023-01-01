@@ -1,18 +1,14 @@
 module one (input I, output O);
   assign O = I;
 endmodule
-
 module two (input I, output O);
   assign O = I;
 endmodule
 
 module top (input I, output O);
-  
   wire W;
-  
   one inst1 (.I(I), .O(W));
   two inst2 (.I(W), .O(O));
-  
 endmodule
 module serializer(
   input clk,
@@ -41,7 +37,7 @@ module shifter (
   input [4:0] in_value,
   output reg[4:0] value);
   reg [4:0]r1;
-  always @(posedge clk)
+  always@(posedge clk)
     begin
       if(load==1)
         begin
@@ -56,8 +52,35 @@ module shifter (
           r1 = r1 << 1;
         end
     end
+    always @(posedge clk)
+    begin
+      if (doAdd0)
+        result0 <= a0 + b0;
+      else
+        result0 <= a0 - b0;
+    end
   assign value[4:0] = r1[4:0];
 endmodule
- moduleegg
- dnuaoeifncio
- endmoduleegg
+module ADD_SUB (
+  input            clk,
+  input [7:0]      a0,
+  input [7:0]      b0,
+  // if this is 1, add; else subtract
+  input            doAdd0,
+  output reg [8:0] result0,
+  output always2 lol
+);
+
+  always @(posedge clk)
+    begin
+      if (doAdd0)
+        result0 <= a0 + b0;
+      else
+        result0 <= a0 - b0;
+    end
+endmodule
+
+
+module wtf()
+hi;
+endmodule
