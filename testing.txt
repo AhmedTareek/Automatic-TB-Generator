@@ -23,6 +23,7 @@ module serializer(
   output reg o_bit  )    ;
   reg[7:0] r1;
   always #10 clk =~clk;
+  dalways ddadaev ;
   always @(posedge clk)
     begin
       if(load==1)
@@ -87,6 +88,7 @@ module ADD_SUB (
   output reg [8:0] result0,
   output always2 lol
 );
+always #100 h=!d;
 
   always @(posedge clk)
     begin
@@ -96,8 +98,9 @@ module ADD_SUB (
         result0 <= a0 - b0;
     end
 endmodule
-
-
+module taef()
+code
+endmodule
 module wtf()
 hi;
 endmodule
@@ -108,6 +111,32 @@ module XYZ (en, data, all_zero, result, status);
   input reg [7:0] in_value;
   output [3:0] result;
   inout  [1:0] status;
-
+always #100 h=!d;
 <body>
+endmodule
+module GRG_always (input A, B, C, D, Clock, nReset, Load, Clk, Reset, Enable,
+                   input [2:0] Data,
+                   output logic A1, A2, Q,
+				   output logic [1:0] F,
+				   output logic [2:0] Count, DCount1, DCount2);
+
+  logic [3:0] R;
+     always #10 clk =~clk;
+  always @(A , B , C , D) // Equiv. to @(*), @*, or @(A or B or C or D)
+  begin
+    R = {A, B, C, D};
+    F = 0;
+
+    for (int I = 0; I < 4; I = I + 1)
+      if (R[I])
+      begin
+        F = I;
+        break;
+      end
+  end
+  always @ (a,b,d or e,now)
+    begin
+    code
+    end
+
 endmodule

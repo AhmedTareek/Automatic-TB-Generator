@@ -48,7 +48,7 @@ class Module:
         self.module = module
         self.inputs = self.__get_inputs()
         self.outputs = self.__get_outputs()
-        self.module_name = self.__get_module_name()
+        self.name = self.__get_module_name()
         self.always_blocks = self.__get_always_blocks() # list of class Always
         self.non_blocking = self.__get_non_blocking_assignment()
         self.variables = self.__get_variables_info()
@@ -89,6 +89,7 @@ class Module:
         for i in range(len(operation)):
             operation[i] = operation[i].strip(" ")
             ans = re.findall("([^\s]+)", operation[i])
+            if not ans: continue
             type = ans[0]
             ans = ans[1:]
             rest = ""
@@ -132,6 +133,7 @@ class Module:
         for i in range(len(operation)):
             operation[i] = operation[i].strip(" ")
             ans = re.findall("([^\s]+)", operation[i])
+            if not ans: continue
             type = ans[0]
             ans = ans[1:]
             rest = ""
@@ -164,6 +166,15 @@ class Module:
         """
         list_of_always_blocks = []
         module = self.module
+        temp = re.findall(r' always\s+.*?;', module) #working here
+        idx=0
+        for i in temp:
+            if re.search(r' always\s*@.*',i):
+                temp.remove(i)
+        for i in temp:
+            i = i.strip(" ")
+            b = Always(i)
+            list_of_always_blocks.append(b)
         ans = re.search(r"(always)\s*@", module)
         while ans:
             module = module[ans.start():] + " "
@@ -252,7 +263,24 @@ class Module:
 class Always:
     def __init__(self,text):
         self.text = text
-        self.sensitivity_list = []
+        self.sensitivity_list = self.__get_sensitivity_list()
         self.if_blocks = []
+
+    def __get_sensitivity_list(self):
+        """
+        search after "@(" and before ")" and split them by "," and add then to the sensitivity list
+        :return: list of strings
+        """
+        a = self.text
+        rl = []
+        b = re.search(r'always\s*@\s*\(', a)
+        if not b: return rl
+        c = a.find(")", b.end())
+        x = a[b.end():c]
+        x = x.split(",")
+        for i in x:
+            i = i.strip(" ")
+            rl.append(i)
+        return rl
 
 
