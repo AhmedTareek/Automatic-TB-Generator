@@ -51,6 +51,7 @@ class Module:
         self.module_name = self.__get_module_name()
         self.always_blocks = self.__get_always_blocks()
         self.non_blocking = self.__get_non_blocking_assignment()
+        self.variables = self.__get_types()
 
     def __get_module_name(self):
         """
@@ -206,3 +207,33 @@ class Module:
         list_of_non_blocking.append(before)
         list_of_non_blocking.append(after)
         return list_of_non_blocking
+
+    def vector_size(name):
+        name = name.strip()
+        print("Size of : ", name)
+        if re.search('^\[', name) or re.search("\[", name):
+            left = re.findall('\[(.*):', name)[0]
+            right = re.findall('\[.*:(.*)\]', name)[0]
+            return abs(int(left) - int(right)) + 1
+        return 1
+
+    def __get_types(self, ):
+        variables = {}
+
+        for input in self.inputs:
+            port = 'input'
+            if 'reg' in input:
+                type = 'reg'
+            else:
+                type = 'wire'
+            size = self.vector_size(input)
+            variables[input] = [port, type, size]
+
+        for output in self.outputs:
+            port = 'output'
+            if 'reg' in output:
+                type = 'reg'
+            else:
+                type = 'wire'
+            size = self.vector_size(output)
+            variables[output] = [port, type, size]
