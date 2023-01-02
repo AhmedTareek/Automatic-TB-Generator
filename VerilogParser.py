@@ -31,7 +31,7 @@ class Parser:
         self.modules = modules
         return modules
 
-    def __remove_comments(self,text):
+    def __remove_comments(self, text):
         """
         it remove all the /* .. */ blocks at first then search for any //... and remove it until the end of line
         :param text: the text you want to remove the comments from
@@ -49,7 +49,7 @@ class Module:
         self.inputs = self.__get_inputs()
         self.outputs = self.__get_outputs()
         self.module_name = self.__get_module_name()
-        self.always_blocks = self.__get_always_blocks()
+        self.always_blocks = self.__get_always_blocks() # list of class Always
         self.non_blocking = self.__get_non_blocking_assignment()
         self.variables = self.__get_variables_info()
 
@@ -178,7 +178,8 @@ class Module:
                 if a == -1: break
                 b = module.find(" end ", temp)
                 temp = b + 1
-            list_of_always_blocks.append(module[:b + 4])
+            block = Always(module[:b + 4])
+            list_of_always_blocks.append(block)
             module = module[b + 4:]
             ans = re.search(r"(always)\s*@", module)
         return list_of_always_blocks
@@ -216,7 +217,6 @@ class Module:
 
     def vector_size(self, name):
         name = name.strip()
-        print("Size of : ", name)
         if re.search('^\[', name) or re.search("\[", name):
             left = re.findall('\[(.*):', name)[0]
             right = re.findall('\[.*:(.*)\]', name)[0]
@@ -247,3 +247,12 @@ class Module:
             variables[raw_output] = {'port': port, 'type': type, 'size': size}
 
         return variables
+
+
+class Always:
+    def __init__(self,text):
+        self.text = text
+        self.sensitivity_list = []
+        self.if_blocks = []
+
+

@@ -22,6 +22,7 @@ module serializer(
   input reg [7:0] in_value,
   output reg o_bit  )    ;
   reg[7:0] r1;
+  always #10 clk =~clk;
   always @(posedge clk)
     begin
       if(load==1)
