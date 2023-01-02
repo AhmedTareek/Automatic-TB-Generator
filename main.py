@@ -165,6 +165,17 @@ class Module:
         list_of_non_blocking.append(after)
         return list_of_non_blocking
 
+
+def vector_size(name):
+    name = name.strip()
+    print("Size of : ", name)
+    if re.search('^\[', name) or re.search("\[", name):
+        left = re.findall('\[(.*):', name)[0]
+        right = re.findall('\[.*:(.*)\]', name)[0]
+        return abs(int(left) - int(right)) + 1
+    return 1
+
+
 def main():
     p1 = Parser()
     x = p1.parse_modules("testing.txt")[4]
@@ -173,6 +184,8 @@ def main():
     print(m1.inputs)
     print(m1.outputs)
     print(m1.non_blocking)
+    for inputs in m1.non_blocking[0]:
+        print(vector_size(inputs))
 
 
 # Press the green button in the gutter to run the script.
