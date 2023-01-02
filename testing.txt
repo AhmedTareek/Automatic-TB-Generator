@@ -1,7 +1,13 @@
-module one (input I, output O);
-  assign O = I;
+/*
+module add()
+this is module
 endmodule
-module two (input I, output O);
+*/
+module /* lol */ one (input I, output O);
+  assign O = I;
+endmodule //ignoeaf
+// this is a comment
+module two (input I, output O); // this is also a comment
   assign O = I;
 endmodule
 
@@ -42,7 +48,11 @@ module shifter (
   output not_inside_output;
   output [7:0] not_inside__output;
   output reg[3:0] not_inside_reg_output;
-
+/* this is a comment
+aedna ljc vjsa vj rsj;v c
+jnfrsncv
+module ajckj c
+ cahbkc ole */
   always@(posedge clk)
     begin
       if(load==1)
