@@ -32,6 +32,7 @@ class Module:
         self.outputs = self.__get_outputs()
         self.module_name = self.__get_module_name()
         self.always_blocks = self.__get_always_blocks()
+        self.non_blocking = self.__get_non_blocking_assignment()
 
     def __get_module_name(self):
         module = self.module.split(';')
@@ -143,6 +144,26 @@ class Module:
             ans = re.search(r"(always)\s*@", module)
         return list_of_always_blocks
 
+    def __get_non_blocking_assignment(self, ):
+        module = self.module
+        list_of_non_blocking = []
+        before = []
+        after = []
+        val = module.split('<=', 1)
+        before.append(val[0].split()[-1])
+        after.append(val[1].split(';', 1)[0])
+        cond = re.search(r"\<=", val[0]) or re.search(r"\<=", val[1])
+        while cond:
+            for str in val:
+                if re.search(r"\<=", str):
+                    val = str.split('<=', 1)
+                    before.append(val[0].split()[-1])
+                    after.append(val[1].split(';', 1)[0])
+                val = str.split('<=', 1)
+            cond = re.search(r"\<=", val[0]) or re.search(r"\<=", val[1])
+        list_of_non_blocking.append(before)
+        list_of_non_blocking.append(after)
+        return list_of_non_blocking
 
 def main():
     p1 = Parser()
@@ -151,6 +172,7 @@ def main():
     print(m1.module_name)
     print(m1.inputs)
     print(m1.outputs)
+    print(m1.non_blocking)
 
 
 # Press the green button in the gutter to run the script.
