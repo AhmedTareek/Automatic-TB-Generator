@@ -185,25 +185,31 @@ class Module:
 
     def __get_non_blocking_assignment(self, ):
         """
-        please add doc
-        :return:
+         searches the text for <=
+         when it finds it, it takes the word just before it and add it to the (before List)
+         and also take the expression after it until it finds ; and add it to the (after List)
+         -removing all spaces at the start and end of each item added to the list
+         -each expression correspond to the one in the other list at the same index
+          example: before[0] and after[0] are the non blocking expression at the first occurrence
+        :return: List that includes 2 lists of strings (before, after)
         """
         module = self.module
         list_of_non_blocking = []
         before = []
         after = []
-        val = module.split('<=', 1)
-        before.append(val[0].split()[-1])
-        after.append(val[1].split(';', 1)[0])
-        cond = re.search(r"\<=", val[0]) or re.search(r"\<=", val[1])
-        while cond:
-            for str in val:
-                if re.search(r"\<=", str):
-                    val = str.split('<=', 1)
-                    before.append(val[0].split()[-1])
-                    after.append(val[1].split(';', 1)[0])
-                val = str.split('<=', 1)
+        if re.search(r"\<=", module):
+            val = module.split('<=', 1)
+            before.append(val[0].split()[-1].strip())
+            after.append(val[1].split(';', 1)[0].strip())
             cond = re.search(r"\<=", val[0]) or re.search(r"\<=", val[1])
+            while cond:
+                for str in val:
+                    if re.search(r"\<=", str):
+                        val = str.split('<=', 1)
+                        before.append(val[0].split()[-1].strip())
+                        after.append(val[1].split(';', 1)[0].strip())
+                    val = str.split('<=', 1)
+                cond = re.search(r"\<=", val[0]) or re.search(r"\<=", val[1])
         list_of_non_blocking.append(before)
         list_of_non_blocking.append(after)
         return list_of_non_blocking
