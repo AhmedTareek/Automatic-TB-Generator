@@ -37,6 +37,12 @@ module shifter (
   input [4:0] in_value,
   output reg[4:0] value);
   reg [4:0]r1;
+  input reg [7:0] not_inside_in_value;
+  input            not_inside_clk;
+  output not_inside_output;
+  output [7:0] not_inside__output;
+  output reg[3:0] not_inside_reg_output;
+
   always@(posedge clk)
     begin
       if(load==1)
@@ -83,4 +89,14 @@ endmodule
 
 module wtf()
 hi;
+endmodule
+module XYZ (en, data, all_zero, result, status);
+  input        eEn;
+  input  [3:0] data;
+  output       all_zero;
+  input reg [7:0] in_value;
+  output [3:0] result;
+  inout  [1:0] status;
+
+<body>
 endmodule

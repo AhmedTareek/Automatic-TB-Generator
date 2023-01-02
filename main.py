@@ -47,6 +47,7 @@ class Module:
     def __get_inputs(self, ):
         module = self.module.split(';')
         operation = module[0]
+        others = module[1:]
         operation = operation.strip(" ")
         operation = operation[6:]
         operation = operation.strip(" ")
@@ -56,7 +57,6 @@ class Module:
         operation = operation.strip(" ")
         operation = operation.split(",")
         inputs = []
-        outputs = []
         for i in range(len(operation)):
             operation[i] = operation[i].strip(" ")
             ans = re.findall("([^\s]+)", operation[i])
@@ -67,14 +67,25 @@ class Module:
                 rest = rest + e + " "
             if type == "input":
                 inputs.append(rest.strip(" "))
-            else:
-                outputs.append(rest.strip(" "))
-        self.inputs = inputs
+        others = ";".join(others)
+        l1 = re.findall(r"(?<=input)\s+\w+;", others)
+        l2 = re.findall(r"(?<=input\s)\s*\w*\s*\[\d:\d]\s+\w+", others)
+        for e in l1:
+            e = e.strip(" ")
+            e = e[:-1]  # to remove the semicolon at the end
+            e = re.sub(' +', ' ', e)  # to remove extra spaces
+            inputs.append(e)
+        for e in l2:
+            e = e.strip(" ")
+            e = re.sub(' +', ' ', e)  # to remove extra spaces
+            inputs.append(e)
+
         return inputs
 
     def __get_outputs(self, ):
         module = self.module.split(';')
         operation = module[0]
+        others = module[1:]
         operation = operation.strip(" ")
         operation = operation[6:]
         operation = operation.strip(" ")
@@ -83,7 +94,6 @@ class Module:
         operation = operation[p1 + 1:p2]
         operation = operation.strip(" ")
         operation = operation.split(",")
-        inputs = []
         outputs = []
         for i in range(len(operation)):
             operation[i] = operation[i].strip(" ")
@@ -93,11 +103,22 @@ class Module:
             rest = ""
             for e in ans:
                 rest = rest + e + " "
-            if type == "input":
-                inputs.append(rest.strip(" "))
-            else:
+            if type == "output":
                 outputs.append(rest.strip(" "))
-        self.outputs = outputs
+        others = ";".join(others)
+        l1 = re.findall(r"(?<=output)\s+\w+;", others)
+        l2 = re.findall(r"(?<=output\s)\s*\w*\s*\[\d:\d]\s+\w+", others)
+
+        for e in l1:
+            e = e.strip(" ")
+            e = e[:-1]  # to remove the semicolon at the end
+            e = re.sub(' +', ' ', e)  # to remove extra spaces
+            outputs.append(e)
+        for e in l2:
+            e = e.strip(" ")
+            e = re.sub(' +', ' ', e)  # to remove extra spaces
+            outputs.append(e)
+
         return outputs
 
     def __get_always_blocks(self, ):
@@ -125,12 +146,11 @@ class Module:
 
 def main():
     p1 = Parser()
-    x = p1.parse_modules("testing.txt")[3]
+    x = p1.parse_modules("testing.txt")[4]
     m1 = Module(x)
     print(m1.module_name)
     print(m1.inputs)
     print(m1.outputs)
-    print(m1.always_blocks)
 
 
 # Press the green button in the gutter to run the script.
