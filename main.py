@@ -1,5 +1,5 @@
-
 from VerilogParser import Parser, Module
+from VerilogGenerator import Generator
 
 
 def main():
