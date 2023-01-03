@@ -1,14 +1,14 @@
 
-class Variable:
+class Port:
     name = ""
-    pinType = ""
-    dataType = ""
+    type = ""
     size = 0
+    direction = ""
 
-    def __init__(self, name, pin_type, data_type, size):
+    def __init__(self, name, direction, size, type):
         self.name = name
-        self.pinType = pin_type
-        self.dataType = data_type
+        self.type = type
+        self.direction = direction
         self.size = size
 
 
@@ -20,23 +20,24 @@ class Generator:
     time_unit = 1
     time_precision = 1
     wait = 10
+    number_of_tests = 1000000
 
     def __init__(self, module_name):
         self.module_name = module_name
-        in1 = Variable("A", "input", "wire", 1)
-        in2 = Variable("B", "input", "wire", 1)
-        in3 = Variable("C", "input", "wire", 2)
-        in4 = Variable("D", "input", "wire", 2)
-        out1 = Variable("F", "output", "wire", 3)
+        in1 = Port("A", "input", 1, "wire")
+        in2 = Port("B", "input", 1, "wire")
+        in3 = Port("C", "input", 2, "wire")
+        in4 = Port("D", "input", 2, "wire")
+        out1 = Port("F", "output", 3, "wire")
         variables = [in1, in2, in3, in4, out1]
         self.__get_inputs_outputs(variables)
         self.__write_file(module_name)
 
     def __get_inputs_outputs(self, variables):
         for variable in variables:
-            if variable.pinType == "input":
+            if variable.direction == "input":
                 self.Inputs.append(variable)
-            elif variable.pinType == "output":
+            elif variable.direction == "output":
                 self.Outputs.append(variable)
 
     def __write_file(self, module_name):
@@ -64,6 +65,11 @@ class Generator:
             text += tb_output.name + ";\n"
             file.write(text)
 
+        bits = 0
+        for variable in self.Inputs:
+            bits += variable.size
+        file.write("\n    //Sequence\n    reg [" + str(bits - 1) + ":0] sequence = 0;\n")
+
         text = "\n    //Instantiate the Design Under Test (DUT)\n"
         file.write(text)
         text = "    " + self.module_name + " DUT (\n"
@@ -80,25 +86,40 @@ class Generator:
         text = "    );\n"
         file.write(text)
 
-        text = "\n  initial     //Stimulus\n   begin\n     //Initialize Inputs\n"
+        text = "\n  initial     //Stimulus\n  begin\n      //Initialize Inputs\n"
         file.write(text)
         for tb_input in self.Inputs:
             text = "        " + str(tb_input.name) + " = " + str(0) + ";\n"
             file.write(text)
 
-        bits = 0
-        for variable in self.Inputs:
-            bits += variable.size
-
-        file.write("\n      //Algorithmic Stimulus Generation\n")
-        for i in range(1, 2**bits + 1):
-            file.write("\n      #" + str(self.wait) + ";\n")
-            temp = i
+        if bits < 20:
+            file.write("\n      //Directed Stimulus Generation\n"
+                       "      repeat(" + str(2**bits) + ")\n      begin\n")
+            file.write("          #" + str(self.wait) + ";\n")
+            start = 0
+            end = -1
             for variable in self.Inputs:
-                file.write("        " + variable.name + " = " + str(temp % (2**variable.size)) + ";\n")
-                temp //= (2**variable.size)
+                end += variable.size
+                file.write("            " + variable.name + " = sequence[" + str(end) + ":" + str(start) + "];\n")
+                start = end + 1
+            file.write("            sequence = sequence + 1;\n      end\n")
+
+            # for i in range(1, 2**bits + 1):
+            #     file.write("\n      #" + str(self.wait) + ";\n")
+            #     temp = i
+            #     for variable in self.Inputs:
+            #         file.write("        " + variable.name + " = " + str(temp % (2**variable.size)) + ";\n")
+            #         temp //= (2**variable.size)
+        else:
+            file.write("\n      //Randomized Stimulus Generation\n"
+                       "    repeat(" + str(self.number_of_tests) + ")\n      begin\n")
+            file.write("          #" + str(self.wait) + ";\n")
+            for variable in self.Inputs:
+                file.write("            " + variable.name + " = $random(seed);\n")
+            file.write("        end\n")
+
         file.write("\n      #" + str(self.wait) + ";\n")
-        file.write("        $finish;\n  end\n")
+        file.write("      $finish;\n  end\n")
 
         file.write("    \ninitial   //Analysis\n   begin\n")
         text = "        $display(\"Time\"   "
