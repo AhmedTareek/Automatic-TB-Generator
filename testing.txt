@@ -4,7 +4,7 @@ this is module
 endmodule
 */
 module /* lol */ one (input I, output O);
-  assign O = I;
+  assign #10 O = I;
 endmodule //ignoeaf
 // this is a comment
 module two (input I, output O); // this is also a comment

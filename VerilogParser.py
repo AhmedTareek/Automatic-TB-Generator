@@ -1,21 +1,43 @@
 import re
-from utility import Port
+
+
+def get_cont_assignment(block):
+    module = block
+    list_of_non_blocking = []
+    before = []
+    after = []
+    if re.search(r"=", module):
+        val = module.split('=', 1)
+        before.append(val[0].split()[-1].strip())
+        after.append(val[1].split(';', 1)[0].strip())
+        cond = re.search(r"=", val[0]) or re.search(r"=", val[1])
+        while cond:
+            for str in val:
+                if re.search(r"=", str):
+                    val = str.split('=', 1)
+                    before.append(val[0].split()[-1].strip())
+                    after.append(val[1].split(';', 1)[0].strip())
+                val = str.split('<=', 1)
+            cond = re.search(r"=", val[0]) or re.search(r"=", val[1])
+    list_of_non_blocking.append(before)
+    list_of_non_blocking.append(after)
+    return list_of_non_blocking
 
 
 class Parser:
-    def __init__(self):
-        self.modules = []
+    def __init__(self, filelocation):
+        self.__file_location = filelocation
+        self.text = self.__get_text_from_file()
+        self.modules = self.parse_modules()
 
-    def parse_modules(self, file_location):
+    def parse_modules(self, ):
         """
         it first open the file location and read it the remove the comments from it and search for module-endmodule then
         add them to the modules list
         :param file_location: the location of file in your machine you want to parse
         :return: list of stings
         """
-        f = open(file_location, "r")
-        s = f.read()
-        s = self.__remove_comments(s)
+        s = self.text
         s = s.split('\n')
         temp = " "
         x = " " + temp.join(s) + " "
@@ -28,7 +50,6 @@ class Parser:
             if a >= 0 and b >= 0:
                 modules.append(x[a:b])
             a = b
-        f.close()
         self.modules = modules
         return modules
 
@@ -44,6 +65,13 @@ class Parser:
         a = re.sub(r" +", " ", a)  # to remove extra spaces
         return a
 
+    def __get_text_from_file(self):
+        f = open(self.__file_location)
+        s = f.read()
+        f.close()
+        s = self.__remove_comments(s)
+        return s
+
 
 class Module:
     def __init__(self, module):
@@ -54,6 +82,7 @@ class Module:
         self.always_blocks = self.__get_always_blocks()  # list of class Always
         self.non_blocking = self.__get_non_blocking_assignment()
         self.variables = self.__get_variables_info()
+        self.assign_statements = self.__get_assign_statements()
 
     def __get_module_name(self):
         """
@@ -250,9 +279,10 @@ class Module:
                 edited_input = input
             elif ']' in input:
                 edited_input = input.replace(']', ' ')
-            else: edited_input = input
+            else:
+                edited_input = input
             raw_input = edited_input.split()[edited_input.count(' ')]
-            b = Port(raw_input,type,size,port)
+            b = Port(raw_input, type, size, port)
             variables.append(b)
 
         for output in self.outputs:
@@ -269,7 +299,7 @@ class Module:
             else:
                 edited_output = output
             raw_output = edited_output.split()[edited_output.count(' ')]
-            b = Port(raw_output,type,size,port)
+            b = Port(raw_output, type, size, port)
             variables.append(b)
 
         return variables
@@ -280,7 +310,8 @@ class Module:
         for line in lines:
             if 'case' in line:
                 case = line.split('case')[1]
-            else: continue
+            else:
+                continue
             case_blocks.append(case.strip())
         for block in case_blocks:
             temp_block = block
@@ -295,6 +326,20 @@ class Module:
 
         return conditions
 
+    def __get_assign_statements(self):
+        txt = self.module
+        a = re.findall(r" assign\s+.*?;", txt)
+        rl = []
+        for i in a:
+            ans = get_cont_assignment(i)
+            delay = re.search(' #\d+',i)
+            if delay:
+                delay = i[delay.start()+2:delay.end()]
+                blk = ContAssign(i.strip(" "), ans,delay)
+            else:
+                blk = ContAssign(i.strip(" "), ans)
+            rl.append(blk)
+        return rl
 
 class Always:
     def __init__(self, text):
@@ -324,3 +369,19 @@ class Case:
     def __init__(self, expression, conditions):
         self.expression = expression
         self.conditions = conditions
+
+
+class Port:
+    def __init__(self, name, direction, size, type):
+        self.name = name
+        self.type = type
+        self.direction = direction
+        self.size = size
+
+
+class ContAssign:
+    def __init__(self, text, list,delay=0):
+        self.text = text
+        self.left_hand_side = list[0][0]
+        self.rigt_hand_side = list[1][0]
+        self.delay =delay

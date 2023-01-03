@@ -1,20 +1,19 @@
+import re
+
 from VerilogParser import Parser, Module
-from VerilogGenerator import Generator
 
 
 def main():
-    # p1 = Parser("testing.txt")
-    # s = p1.text
-    # print(s)
-    Generator("modu2")
+    p1 = Parser("testing.txt")
+    for m in p1.modules:
+        m1 = Module(m)
+        a = m1.assign_statements
+        for i in a:
+            print(i.text)
+            print(i.delay)
+            print(i.left_hand_side, i.rigt_hand_side)
 
-    p1 = Parser()
-    m = p1.parse_modules("testing.txt")
-    m1 = Module(m[10])
-    #print(m1.cases)
 
 # Press the green button in the gutter to run the script.
-
-
 if __name__ == '__main__':
     main()
