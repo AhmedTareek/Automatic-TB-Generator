@@ -10,6 +10,7 @@ def main():
         print(m1.module_name)
         for j in m1.always_blocks:
             print(j.text)
+    g = Generator("modu")
 
 
 
