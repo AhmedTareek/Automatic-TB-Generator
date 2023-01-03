@@ -5,12 +5,9 @@ from VerilogGenerator import Generator
 def main():
     p1 = Parser()
     m = p1.parse_modules("testing.txt")
-    for i in range(6):
-        m1 = Module(m[i])
-        for var in m1.variables:
-            print(var.name,end=' ')
-            print(var.direction, end=' ')
-        print("")
+    m1 = Module(m[10])
+    print(m1.cases)
+
 
 
 
