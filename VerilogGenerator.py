@@ -72,7 +72,10 @@ class Generator:
             text = "        ." + tb_input.name + "(" + tb_input.name + "),\n"
             file.write(text)
         for tb_output in self.Outputs:
-            text = "        ." + tb_output.name + "(" + tb_output.name + "),\n"
+            if tb_output.name != self.Outputs[-1].name:
+                text = "        ." + tb_output.name + "(" + tb_output.name + "),\n"
+            else:
+                text = "        ." + tb_output.name + "(" + tb_output.name + ")\n"
             file.write(text)
         text = "    );\n"
         file.write(text)
@@ -88,7 +91,7 @@ class Generator:
             bits += variable.size
 
         file.write("\n      //Algorithmic Stimulus Generation\n")
-        for i in range(1, 2**bits):
+        for i in range(1, 2**bits + 1):
             file.write("\n      #" + str(self.wait) + ";\n")
             temp = i
             for variable in self.Inputs:
@@ -98,7 +101,7 @@ class Generator:
         file.write("        $finish;\n  end\n")
 
         file.write("    \ninitial   //Analysis\n   begin\n")
-        text = "        $display(Time   "
+        text = "        $display(\"Time\"   "
         for variable in self.Inputs:
             text += ", ,\"" + variable.name + "\" "
         for variable in self.Outputs:

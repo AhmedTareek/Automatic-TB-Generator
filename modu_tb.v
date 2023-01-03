@@ -17,7 +17,7 @@ module modu_tb ();
         .B(B),
         .C(C),
         .D(D),
-        .F(F),
+        .F(F)
     );
 
   initial     //Stimulus
@@ -407,12 +407,18 @@ module modu_tb ();
         B = 1;
         C = 3;
         D = 3;
+
+      #10;
+        A = 0;
+        B = 0;
+        C = 0;
+        D = 0;
         $finish;
   end
     
 initial   //Analysis
    begin
-        $display(Time   , ,"A" , ,"B" , ,"C" , ,"D" , ,"F" );
+        $display("Time"   , ,"A" , ,"B" , ,"C" , ,"D" , ,"F" );
         $monitor($time   , ,A , ,B , ,C , ,D , ,F );
 
   end
