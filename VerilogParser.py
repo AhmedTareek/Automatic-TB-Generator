@@ -39,7 +39,7 @@ class Parser:
         """
         a = re.sub(r"/\*[\s\S]*?\*/", "", text)
         a = re.sub(r"//.*", "", a)
-        a = re.sub(r"\t+"," ",a) # to replace tabs with spaces
+        a = re.sub(r"\t+", " ", a)  # to replace tabs with spaces
         a = re.sub(r" +", " ", a)  # to remove extra spaces
         return a
 
@@ -236,7 +236,7 @@ class Module:
         return 1
 
     def __get_variables_info(self, ):
-        variables = {}
+        variables = []
 
         for input in self.inputs:
             port = 'input'
@@ -246,7 +246,8 @@ class Module:
                 type = 'wire'
             size = self.vector_size(input)
             raw_input = input.split()[input.count(' ')]
-            variables[raw_input] = {'port': port, 'type': type, 'size': size}
+            b = Port(raw_input,type,size,port)
+            variables.append(b)
 
         for output in self.outputs:
             port = 'output'
@@ -256,7 +257,8 @@ class Module:
                 type = 'wire'
             size = self.vector_size(output)
             raw_output = output.split()[output.count(' ')]
-            variables[raw_output] = {'port': port, 'type': type, 'size': size}
+            b = Port(raw_output,type,size,port)
+            variables.append(b)
 
         return variables
 
@@ -283,3 +285,11 @@ class Always:
             i = i.strip(" ")
             rl.append(i)
         return rl
+
+
+class Port:
+    def __init__(self, name, type, size,direction):
+        self.name = name
+        self.type = type
+        self.size = size
+        self.direction = direction
