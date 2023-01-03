@@ -1,4 +1,5 @@
 import re
+from utility import Port
 
 
 class Parser:
@@ -318,13 +319,6 @@ class Always:
             rl.append(i)
         return rl
 
-
-class Port:
-    def __init__(self, name, type, size,direction):
-        self.name = name
-        self.type = type
-        self.size = size
-        self.direction = direction
 
 class Case:
     def __init__(self, expression, conditions):

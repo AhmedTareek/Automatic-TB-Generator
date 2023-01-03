@@ -1,17 +1,4 @@
 
-class Port:
-    name = ""
-    type = ""
-    size = 0
-    direction = ""
-
-    def __init__(self, name, direction, size, type):
-        self.name = name
-        self.type = type
-        self.direction = direction
-        self.size = size
-
-
 class Generator:
 
     Inputs = []
@@ -20,25 +7,19 @@ class Generator:
     time_unit = 1
     time_precision = 1
     wait = 10
-    number_of_tests = 1000000
+    number_of_tests = 100000
 
-    def __init__(self, module_name):
+    def __init__(self, module_name, ports):
         self.module_name = module_name
-        in1 = Port("A", "input", 1, "wire")
-        in2 = Port("B", "input", 1, "wire")
-        in3 = Port("C", "input", 10, "wire")
-        in4 = Port("D", "input", 10, "wire")
-        out1 = Port("F", "output", 11, "wire")
-        variables = [in1, in2, in3, in4, out1]
-        self.__get_inputs_outputs(variables)
+        self.__get_inputs_outputs(ports)
         self.__write_file(module_name)
 
-    def __get_inputs_outputs(self, variables):
-        for variable in variables:
-            if variable.direction == "input":
-                self.Inputs.append(variable)
-            elif variable.direction == "output":
-                self.Outputs.append(variable)
+    def __get_inputs_outputs(self, ports):
+        for port in ports:
+            if port.direction == "input":
+                self.Inputs.append(port)
+            elif port.direction == "output":
+                self.Outputs.append(port)
 
     def __write_file(self, module_name):
         filename = module_name + "_tb.v"
@@ -66,9 +47,10 @@ class Generator:
             file.write(text)
 
         bits = 0
-        for variable in self.Inputs:
-            bits += variable.size
+        for port in self.Inputs:
+            bits += port.size
         file.write("\n    //Sequence\n    reg [" + str(bits - 1) + ":0] sequence = 0;\n")
+        file.write("\n    //Randomization\n    integer seed = 5;\n")
 
         text = "\n    //Instantiate the Design Under Test (DUT)\n"
         file.write(text)
@@ -92,30 +74,23 @@ class Generator:
             text = "        " + str(tb_input.name) + " = " + str(0) + ";\n"
             file.write(text)
 
-        if bits < 20:
+        if bits < 17:       # generate directed testbench if input bits are less than 17 (less than 100000 combination)
             file.write("\n      //Directed Stimulus Generation\n"
                        "      repeat(" + str(2**bits + 1) + ")\n      begin\n")
             file.write("          #" + str(self.wait) + ";\n")
             start = 0
             end = -1
-            for variable in self.Inputs:
-                end += variable.size
-                file.write("            " + variable.name + " = sequence[" + str(end) + ":" + str(start) + "];\n")
+            for port in self.Inputs:
+                end += port.size
+                file.write("            " + port.name + " = sequence[" + str(end) + ":" + str(start) + "];\n")
                 start = end + 1
             file.write("            sequence = sequence + 1;\n      end\n")
-
-            # for i in range(1, 2**bits + 1):
-            #     file.write("\n      #" + str(self.wait) + ";\n")
-            #     temp = i
-            #     for variable in self.Inputs:
-            #         file.write("        " + variable.name + " = " + str(temp % (2**variable.size)) + ";\n")
-            #         temp //= (2**variable.size)
-        else:
+        else:       # if input bits are more than 16 generate randomized test cases instead
             file.write("\n      //Randomized Stimulus Generation\n"
                        "    repeat(" + str(self.number_of_tests) + ")\n      begin\n")
             file.write("          #" + str(self.wait) + ";\n")
-            for variable in self.Inputs:
-                file.write("            " + variable.name + " = $random(seed);\n")
+            for port in self.Inputs:
+                file.write("            " + port.name + " = $random(seed);\n")
             file.write("        end\n")
 
         file.write("\n      #" + str(self.wait) + ";\n")
@@ -123,18 +98,18 @@ class Generator:
 
         file.write("    \ninitial   //Analysis\n   begin\n")
         text = "        $display(\"             Time\"   "
-        for variable in self.Inputs:
-            text += ", ,\"" + variable.name + "\" "
-        for variable in self.Outputs:
-            text += ", ,\"" + variable.name + "\" "
+        for port in self.Inputs:
+            text += ", ,\"" + port.name + "\" "
+        for port in self.Outputs:
+            text += ", ,\"" + port.name + "\" "
         text += ");\n"
         file.write(text)
 
         text = "        $monitor($time   "
-        for variable in self.Inputs:
-            text += ", ," + variable.name + " "
-        for variable in self.Outputs:
-            text += ", ," + variable.name + " "
+        for port in self.Inputs:
+            text += ", ," + port.name + " "
+        for port in self.Outputs:
+            text += ", ," + port.name + " "
         text += ");\n"
         file.write(text)
 

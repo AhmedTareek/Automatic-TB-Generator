@@ -14,6 +14,9 @@ module modu2_tb ();
     //Sequence
     reg [21:0] sequence = 0;
 
+    //Randomization
+    integer seed = 5;
+
     //Instantiate the Design Under Test (DUT)
     modu2 DUT (
         .A(A),
@@ -32,7 +35,7 @@ module modu2_tb ();
         D = 0;
 
       //Randomized Stimulus Generation
-    repeat(1000000)
+    repeat(100000)
       begin
           #10;
             A = $random(seed);
