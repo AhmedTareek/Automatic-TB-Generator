@@ -273,6 +273,27 @@ class Module:
 
         return variables
 
+    def __get_case(self, ):
+        case_blocks = []
+        lines = self.module.split('endcase')
+        for line in lines:
+            if 'case' in line:
+                case = line.split('case')[1]
+            else: continue
+            case_blocks.append(case.strip())
+        for block in case_blocks:
+            temp_block = block
+            expression = temp_block.split('(')[1].split(')')[0]
+            temp_block = temp_block.replace('(' + expression + ')', '').strip()
+            conditions_list = temp_block.split(';')[:-1]
+            conditions = {}
+            for condition in conditions_list:
+                key = condition.split(':')[0].strip()
+                value = condition.split(':')[1].strip()
+                conditions[key] = value
+
+        return conditions
+
 
 class Always:
     def __init__(self, text):
@@ -304,3 +325,8 @@ class Port:
         self.type = type
         self.size = size
         self.direction = direction
+
+class Case:
+    def __init__(self, expression, conditions):
+        self.expression = expression
+        self.conditions = conditions
