@@ -37,9 +37,10 @@ class Parser:
         :param text: the text you want to remove the comments from
         :return: new string with the comments removed
         """
-        x = re.sub(' +', ' ', text)  # to remove extra spaces
-        a = re.sub(r"/\*[\s\S]*?\*/", "", x)
+        a = re.sub(r"/\*[\s\S]*?\*/", "", text)
         a = re.sub(r"//.*", "", a)
+        a = re.sub(r"\t+"," ",a) # to replace tabs with spaces
+        a = re.sub(r" +", " ", a)  # to remove extra spaces
         return a
 
 
@@ -49,7 +50,7 @@ class Module:
         self.inputs = self.__get_inputs()
         self.outputs = self.__get_outputs()
         self.name = self.__get_module_name()
-        self.always_blocks = self.__get_always_blocks() # list of class Always
+        self.always_blocks = self.__get_always_blocks()  # list of class Always
         self.non_blocking = self.__get_non_blocking_assignment()
         self.variables = self.__get_variables_info()
 
@@ -68,7 +69,7 @@ class Module:
         self.module_name = module_name
         return module_name
 
-    def __get_inputs(self,):
+    def __get_inputs(self, ):
         """
         it searches for any appearance of the word input in all the code and get the words after it until it reaches
         [";", "," . ")"]
@@ -157,7 +158,7 @@ class Module:
 
         return outputs
 
-    def __get_always_blocks(self,):
+    def __get_always_blocks(self, ):
         """
         searches the text for the word always followed by @ and may be spaces in between or not and matches until it
         find the end word
@@ -166,10 +167,10 @@ class Module:
         """
         list_of_always_blocks = []
         module = self.module
-        temp = re.findall(r' always\s+.*?;', module) #working here
-        idx=0
+        temp = re.findall(r' always\s+.*?;', module)  # working here
+        idx = 0
         for i in temp:
-            if re.search(r' always\s*@.*',i):
+            if re.search(r' always\s*@.*', i):
                 temp.remove(i)
         for i in temp:
             i = i.strip(" ")
@@ -185,10 +186,10 @@ class Module:
             u = start + 1
             while b > a and (a >= 0):
                 a = module.find(" begin ", u)  # match every begin and end until you find end without a begin
-                u = a + 1
+                u = a + 6
                 if a == -1: break
                 b = module.find(" end ", temp)
-                temp = b + 1
+                temp = b + 4
             block = Always(module[:b + 4])
             list_of_always_blocks.append(block)
             module = module[b + 4:]
@@ -261,7 +262,7 @@ class Module:
 
 
 class Always:
-    def __init__(self,text):
+    def __init__(self, text):
         self.text = text
         self.sensitivity_list = self.__get_sensitivity_list()
         self.if_blocks = []
@@ -282,5 +283,3 @@ class Always:
             i = i.strip(" ")
             rl.append(i)
         return rl
-
-
