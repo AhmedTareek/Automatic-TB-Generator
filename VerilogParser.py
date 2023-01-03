@@ -245,7 +245,12 @@ class Module:
             else:
                 type = 'wire'
             size = self.vector_size(input)
-            raw_input = input.split()[input.count(' ')]
+            if '] ' in input:
+                edited_input = input
+            elif ']' in input:
+                edited_input = input.replace(']', ' ')
+            else: edited_input = input
+            raw_input = edited_input.split()[edited_input.count(' ')]
             b = Port(raw_input,type,size,port)
             variables.append(b)
 
@@ -256,7 +261,13 @@ class Module:
             else:
                 type = 'wire'
             size = self.vector_size(output)
-            raw_output = output.split()[output.count(' ')]
+            if '] ' in output:
+                edited_output = output
+            elif ']' in output:
+                edited_output = output.replace(']', ' ')
+            else:
+                edited_output = output
+            raw_output = edited_output.split()[edited_output.count(' ')]
             b = Port(raw_output,type,size,port)
             variables.append(b)
 
