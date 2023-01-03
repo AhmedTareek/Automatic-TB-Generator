@@ -8,6 +8,11 @@ def main():
     print(s)
     g = Generator("test")
 
+    # p1 = Parser()
+    # m = p1.parse_modules("testing.txt")
+    # m1 = Module(m[10])
+    # print(m1.cases)
+
 # Press the green button in the gutter to run the script.
 
 

@@ -2,19 +2,19 @@ import re
 
 
 class Parser:
-    def __init__(self, filelocation):
-        self.__file_location = filelocation
-        self.text = self.__get_text_from_file()
-        self.modules = self.parse_modules()
+    def __init__(self):
+        self.modules = []
 
-    def parse_modules(self,):
+    def parse_modules(self, file_location):
         """
         it first open the file location and read it the remove the comments from it and search for module-endmodule then
         add them to the modules list
         :param file_location: the location of file in your machine you want to parse
         :return: list of stings
         """
-        s = self.text
+        f = open(file_location, "r")
+        s = f.read()
+        s = self.__remove_comments(s)
         s = s.split('\n')
         temp = " "
         x = " " + temp.join(s) + " "
@@ -27,6 +27,7 @@ class Parser:
             if a >= 0 and b >= 0:
                 modules.append(x[a:b])
             a = b
+        f.close()
         self.modules = modules
         return modules
 
@@ -41,13 +42,6 @@ class Parser:
         a = re.sub(r"\t+", " ", a)  # to replace tabs with spaces
         a = re.sub(r" +", " ", a)  # to remove extra spaces
         return a
-
-    def __get_text_from_file(self):
-        f = open(self.__file_location)
-        s = f.read()
-        f.close()
-        s = self.__remove_comments(s)
-        return s
 
 
 class Module:
@@ -257,7 +251,7 @@ class Module:
                 edited_input = input.replace(']', ' ')
             else: edited_input = input
             raw_input = edited_input.split()[edited_input.count(' ')]
-            b = Port(raw_input, type, size, port)
+            b = Port(raw_input,type,size,port)
             variables.append(b)
 
         for output in self.outputs:
@@ -274,10 +268,31 @@ class Module:
             else:
                 edited_output = output
             raw_output = edited_output.split()[edited_output.count(' ')]
-            b = Port(raw_output, type, size, port)
+            b = Port(raw_output,type,size,port)
             variables.append(b)
 
         return variables
+
+    def __get_case(self, ):
+        case_blocks = []
+        lines = self.module.split('endcase')
+        for line in lines:
+            if 'case' in line:
+                case = line.split('case')[1]
+            else: continue
+            case_blocks.append(case.strip())
+        for block in case_blocks:
+            temp_block = block
+            expression = temp_block.split('(')[1].split(')')[0]
+            temp_block = temp_block.replace('(' + expression + ')', '').strip()
+            conditions_list = temp_block.split(';')[:-1]
+            conditions = {}
+            for condition in conditions_list:
+                key = condition.split(':')[0].strip()
+                value = condition.split(':')[1].strip()
+                conditions[key] = value
+
+        return conditions
 
 
 class Always:
@@ -305,8 +320,13 @@ class Always:
 
 
 class Port:
-    def __init__(self, name, type, size, direction):
+    def __init__(self, name, type, size,direction):
         self.name = name
         self.type = type
         self.size = size
         self.direction = direction
+
+class Case:
+    def __init__(self, expression, conditions):
+        self.expression = expression
+        self.conditions = conditions
