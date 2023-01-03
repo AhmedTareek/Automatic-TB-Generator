@@ -1,21 +1,21 @@
 `timescale 1ns / 1ps
 
-module test_tb ();
+module modu2_tb ();
 
     //Inputs
     reg A;
     reg B;
-    reg  [1:0] C;
-    reg  [1:0] D;
+    reg  [9:0] C;
+    reg  [9:0] D;
 
     //Outputs
-    wire  [2:0] F;
+    wire  [10:0] F;
 
     //Sequence
-    reg [5:0] sequence = 0;
+    reg [21:0] sequence = 0;
 
     //Instantiate the Design Under Test (DUT)
-    test DUT (
+    modu2 DUT (
         .A(A),
         .B(B),
         .C(C),
@@ -31,16 +31,15 @@ module test_tb ();
         C = 0;
         D = 0;
 
-      //Directed Stimulus Generation
-      repeat(65)
+      //Randomized Stimulus Generation
+    repeat(1000000)
       begin
           #10;
-            A = sequence[0:0];
-            B = sequence[1:1];
-            C = sequence[3:2];
-            D = sequence[5:4];
-            sequence = sequence + 1;
-      end
+            A = $random(seed);
+            B = $random(seed);
+            C = $random(seed);
+            D = $random(seed);
+        end
 
       #10;
       $finish;

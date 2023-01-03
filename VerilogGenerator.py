@@ -26,9 +26,9 @@ class Generator:
         self.module_name = module_name
         in1 = Port("A", "input", 1, "wire")
         in2 = Port("B", "input", 1, "wire")
-        in3 = Port("C", "input", 2, "wire")
-        in4 = Port("D", "input", 2, "wire")
-        out1 = Port("F", "output", 3, "wire")
+        in3 = Port("C", "input", 10, "wire")
+        in4 = Port("D", "input", 10, "wire")
+        out1 = Port("F", "output", 11, "wire")
         variables = [in1, in2, in3, in4, out1]
         self.__get_inputs_outputs(variables)
         self.__write_file(module_name)
@@ -94,7 +94,7 @@ class Generator:
 
         if bits < 20:
             file.write("\n      //Directed Stimulus Generation\n"
-                       "      repeat(" + str(2**bits) + ")\n      begin\n")
+                       "      repeat(" + str(2**bits + 1) + ")\n      begin\n")
             file.write("          #" + str(self.wait) + ";\n")
             start = 0
             end = -1
@@ -122,7 +122,7 @@ class Generator:
         file.write("      $finish;\n  end\n")
 
         file.write("    \ninitial   //Analysis\n   begin\n")
-        text = "        $display(\"Time\"   "
+        text = "        $display(\"             Time\"   "
         for variable in self.Inputs:
             text += ", ,\"" + variable.name + "\" "
         for variable in self.Outputs:
