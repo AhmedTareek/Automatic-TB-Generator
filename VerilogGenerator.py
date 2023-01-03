@@ -97,7 +97,7 @@ class Generator:
             for variable in self.Inputs:
                 file.write("        " + variable.name + " = " + str(temp % (2**variable.size)) + ";\n")
                 temp //= (2**variable.size)
-
+        file.write("\n      #" + str(self.wait) + ";\n")
         file.write("        $finish;\n  end\n")
 
         file.write("    \ninitial   //Analysis\n   begin\n")

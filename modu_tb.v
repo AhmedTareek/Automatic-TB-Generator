@@ -413,6 +413,8 @@ module modu_tb ();
         B = 0;
         C = 0;
         D = 0;
+
+      #10;
         $finish;
   end
     
