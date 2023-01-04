@@ -364,6 +364,28 @@ class Always:
             rl.append(i)
         return rl
 
+class If_statement:
+    def __init__(self, text):
+        self.text = text
+        self.expression = self.__get_expression()
+        self.else_expression = self.__get_else()
+
+    def __get_expression(self, ):
+        text = self.text
+        l = []
+        r = []
+        list = []
+        l = re.findall(r'if\s*\((.*?)\)', text)
+        r = re.findall(r'else\s*if\s*\((.*?)\)', text)
+        list = [item for item in l if item not in r]
+        return list
+
+    def __get_else(self, ):
+        text = self.text
+        l = []
+        l = re.findall(r'else\s*if\s*\((.*?)\)', text)
+        return l
+
 
 class Case:
     def __init__(self, expression, conditions):

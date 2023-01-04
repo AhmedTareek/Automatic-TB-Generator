@@ -1,6 +1,6 @@
 import re
 
-from VerilogParser import Parser, Module
+from VerilogParser import Parser, Module, If_statement
 
 
 def main():
@@ -12,6 +12,11 @@ def main():
             print(i.text)
             print(i.delay)
             print(i.left_hand_side, i.rigt_hand_side)
+    for m in p1.modules:
+        if_test = If_statement(m)
+        m1 = Module(m)
+        print("if expressions in module ", m1.module_name, " are ", if_test.expression)
+        print("else if expressions in module ", m1.module_name, " are ", if_test.else_expression)
 
 
 # Press the green button in the gutter to run the script.
