@@ -8,11 +8,13 @@ class Generator:
     time_precision = 1
     wait = 10
     number_of_tests = 100000
+    path = ""
 
-    def __init__(self, module_name, ports):
+    def __init__(self, module_name, ports, filepath):
         self.module_name = module_name
         self.__get_inputs_outputs(ports)
         self.__write_file(module_name)
+        self.path = filepath
 
     def __get_inputs_outputs(self, ports):
         for port in ports:
@@ -22,7 +24,7 @@ class Generator:
                 self.Outputs.append(port)
 
     def __write_file(self, module_name):
-        filename = module_name + "_tb.v"
+        filename = self.path + module_name + "_tb.v"
         file = open(filename, "w")
 
         text = "`timescale " + str(self.time_unit) + "ns / " + str(self.time_precision) + "ps\n\n"
