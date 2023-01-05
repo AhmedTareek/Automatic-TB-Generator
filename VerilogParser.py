@@ -282,7 +282,7 @@ class Module:
             else:
                 edited_input = input
             raw_input = edited_input.split()[edited_input.count(' ')]
-            b = Port(raw_input, type, size, port)
+            b = Port(raw_input, port, size, type)
             variables.append(b)
 
         for output in self.outputs:
@@ -299,7 +299,7 @@ class Module:
             else:
                 edited_output = output
             raw_output = edited_output.split()[edited_output.count(' ')]
-            b = Port(raw_output, type, size, port)
+            b = Port(raw_output, port, size, type)
             variables.append(b)
 
         return variables
