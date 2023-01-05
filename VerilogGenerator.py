@@ -49,8 +49,10 @@ class Generator:
         bits = 0
         for port in self.Inputs:
             bits += port.size
-        file.write("\n    //Sequence\n    reg [" + str(bits - 1) + ":0] sequence = 0;\n")
-        file.write("\n    //Randomization\n    integer seed = 5;\n")
+        if bits < 17:
+            file.write("\n    //Sequence\n    reg [" + str(bits - 1) + ":0] sequence = 0;\n")
+        else:
+            file.write("\n    //Randomization\n    integer seed = 5;\n")
 
         text = "\n    //Instantiate the Design Under Test (DUT)\n"
         file.write(text)
