@@ -1,0 +1,617 @@
+Coverage Report by file with details
+
+=================================================================================
+=== File: DecMuxAdd2.v
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                        34        34         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for file DecMuxAdd2.v --
+
+------------------------------------IF Branch------------------------------------
+    24                                     96897     Count coming in to IF
+    24              1                      48828     		if (en == 0)
+    26              1                       2971     		else if (sel1 == 4'b0000)
+    28              1                       2993     		else if (sel1 == 4'b0001)
+    30              1                       3043     		else if (sel1 == 4'b0010)
+    32              1                       2941     		else if (sel1 == 4'b0011)
+    34              1                       3104     		else if (sel1 == 4'b0100)
+    36              1                       2980     		else if (sel1 == 4'b0101)
+    38              1                       3029     		else if (sel1 == 4'b0110)
+    40              1                       2936     		else if (sel1 == 4'b0111)
+    42              1                       3005     		else if (sel1 == 4'b1000)
+    44              1                       2992     		else if (sel1 == 4'b1001)
+    46              1                       3011     		else if (sel1 == 4'b1010)
+    48              1                       3019     		else if (sel1 == 4'b1011)
+    50              1                       2982     		else if (sel1 == 4'b1100)
+    52              1                       3007     		else if (sel1 == 4'b1101)
+    54              1                       3056     		else if (sel1 == 4'b1110)
+    56              1                       3000     		else
+Branch totals: 17 hits of 17 branches = 100.00%
+
+------------------------------------CASE Branch------------------------------------
+    62                                    100002     Count coming in to CASE
+    63              1                       6167     		 4'b0000 : muxout <= a;
+    64              1                       6297     		 4'b0001 : muxout <= b;
+    65              1                       6334     		 4'b0010 : muxout <= c;
+    66              1                       6202     		 4'b0011 : muxout <= d;
+    67              1                       6150     		 4'b0100 : muxout <= a&b;
+    68              1                       6353     		 4'b0101 : muxout <= a|b;
+    69              1                       6229     		 4'b0110 : muxout <= a&c;
+    70              1                       6222     		 4'b0111 : muxout <= a|c;	
+    71              1                       6317     		 4'b1000 : muxout <= a&d;
+    72              1                       6308     		 4'b1001 : muxout <= a|d;
+    73              1                       6264     		 4'b1010 : muxout <= b&c;
+    74              1                       6215     		 4'b1011 : muxout <= b|c;
+    75              1                       6281     		 4'b1100 : muxout <= b&d;
+    76              1                       6186     		 4'b1101 : muxout <= b|d;
+    77              1                       6326     		 4'b1110 : muxout <= c&d;
+    78              1                       6150     		 4'b1111 : muxout <= c|d;			 
+    79              1                          1     		 default : muxout <= 0;
+Branch totals: 17 hits of 17 branches = 100.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                      15        15         0   100.00%
+
+================================Condition Details================================
+
+Condition Coverage for file DecMuxAdd2.v --
+
+----------------Focused Condition View-------------------
+Line       26 Item    1  (sel1 == 0)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 0)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 0)_0         -                             
+  Row   2:          1  (sel1 == 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       28 Item    1  (sel1 == 1)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 1)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 1)_0         -                             
+  Row   2:          1  (sel1 == 1)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       30 Item    1  (sel1 == 2)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 2)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 2)_0         -                             
+  Row   2:          1  (sel1 == 2)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       32 Item    1  (sel1 == 3)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 3)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 3)_0         -                             
+  Row   2:          1  (sel1 == 3)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       34 Item    1  (sel1 == 4)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 4)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 4)_0         -                             
+  Row   2:          1  (sel1 == 4)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       36 Item    1  (sel1 == 5)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 5)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 5)_0         -                             
+  Row   2:          1  (sel1 == 5)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       38 Item    1  (sel1 == 6)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 6)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 6)_0         -                             
+  Row   2:          1  (sel1 == 6)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       40 Item    1  (sel1 == 7)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 7)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 7)_0         -                             
+  Row   2:          1  (sel1 == 7)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       42 Item    1  (sel1 == 8)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 8)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 8)_0         -                             
+  Row   2:          1  (sel1 == 8)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       44 Item    1  (sel1 == 9)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 9)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 9)_0         -                             
+  Row   2:          1  (sel1 == 9)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       46 Item    1  (sel1 == 10)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+    Input Term   Covered  Reason for no coverage   Hint
+   -----------  --------  -----------------------  --------------
+  (sel1 == 10)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 10)_0        -                             
+  Row   2:          1  (sel1 == 10)_1        -                             
+
+----------------Focused Condition View-------------------
+Line       48 Item    1  (sel1 == 11)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+    Input Term   Covered  Reason for no coverage   Hint
+   -----------  --------  -----------------------  --------------
+  (sel1 == 11)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 11)_0        -                             
+  Row   2:          1  (sel1 == 11)_1        -                             
+
+----------------Focused Condition View-------------------
+Line       50 Item    1  (sel1 == 12)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+    Input Term   Covered  Reason for no coverage   Hint
+   -----------  --------  -----------------------  --------------
+  (sel1 == 12)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 12)_0        -                             
+  Row   2:          1  (sel1 == 12)_1        -                             
+
+----------------Focused Condition View-------------------
+Line       52 Item    1  (sel1 == 13)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+    Input Term   Covered  Reason for no coverage   Hint
+   -----------  --------  -----------------------  --------------
+  (sel1 == 13)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 13)_0        -                             
+  Row   2:          1  (sel1 == 13)_1        -                             
+
+----------------Focused Condition View-------------------
+Line       54 Item    1  (sel1 == 14)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+    Input Term   Covered  Reason for no coverage   Hint
+   -----------  --------  -----------------------  --------------
+  (sel1 == 14)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 14)_0        -                             
+  Row   2:          1  (sel1 == 14)_1        -                             
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                     24        24         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for file DecMuxAdd2.v --
+
+-----------Focused Expression View (Bimodal)------------
+Line       83 Item    1  ((X[0] ^ Y[0]) ^ Ci)
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage                  Hint
+ -----------  --------  --------------------------------------  --------------
+        X[0]         Y
+        Y[0]         Y
+          Ci         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           0  X[0]_0                -                                  
+ Row   2:           1           1  X[0]_1                -                                  
+ Row   3:           1           0  Y[0]_0                -                                  
+ Row   4:           1           1  Y[0]_1                -                                  
+ Row   5:           1           0  Ci_0                  -                                  
+ Row   6:           1           1  Ci_1                  -                                  
+
+----------------Focused Expression View-----------------
+Line       84 Item    1  (((X[0] & Y[0]) | (X[0] & Ci)) | (Y[0] & Ci))
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        X[0]         Y
+        Y[0]         Y
+          Ci         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  X[0]_0                (~(Y[0] & Ci) && Y[0]), (~(Y[0] & Ci) && Ci)
+  Row   2:          1  X[0]_1                (~(Y[0] & Ci) && ~(X[0] & Ci) && Y[0]), (~(Y[0] & Ci) && ~(X[0] & Y[0]) && Ci)
+  Row   3:          1  Y[0]_0                (~(X[0] & Ci) && X[0]), (~((X[0] & Y[0]) | (X[0] & Ci)) && Ci)
+  Row   4:          1  Y[0]_1                (~(Y[0] & Ci) && ~(X[0] & Ci) && X[0]), (~((X[0] & Y[0]) | (X[0] & Ci)) && Ci)
+  Row   5:          1  Ci_0                  (~(X[0] & Y[0]) && X[0]), (~((X[0] & Y[0]) | (X[0] & Ci)) && Y[0])
+  Row   6:          1  Ci_1                  (~(Y[0] & Ci) && ~(X[0] & Y[0]) && X[0]), (~((X[0] & Y[0]) | (X[0] & Ci)) && Y[0])
+
+-----------Focused Expression View (Bimodal)------------
+Line       86 Item    1  ((X[1] ^ Y[1]) ^ temp[0])
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage                  Hint
+ -----------  --------  --------------------------------------  --------------
+        X[1]         Y
+        Y[1]         Y
+     temp[0]         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           1  X[1]_0                -                                  
+ Row   2:           1           0  X[1]_1                -                                  
+ Row   3:           1           0  Y[1]_0                -                                  
+ Row   4:           0           1  Y[1]_1                -                                  
+ Row   5:           1           1  temp[0]_0             -                                  
+ Row   6:           1           0  temp[0]_1             -                                  
+
+----------------Focused Expression View-----------------
+Line       87 Item    1  (((X[1] & Y[1]) | (X[1] & temp[0])) | (Y[1] & temp[0]))
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        X[1]         Y
+        Y[1]         Y
+     temp[0]         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  X[1]_0                (~(Y[1] & temp[0]) && Y[1]), (~(Y[1] & temp[0]) && temp[0])
+  Row   2:          1  X[1]_1                (~(Y[1] & temp[0]) && ~(X[1] & temp[0]) && Y[1]), (~(Y[1] & temp[0]) && ~(X[1] & Y[1]) && temp[0])
+  Row   3:          1  Y[1]_0                (~(X[1] & temp[0]) && X[1]), (~((X[1] & Y[1]) | (X[1] & temp[0])) && temp[0])
+  Row   4:          1  Y[1]_1                (~(Y[1] & temp[0]) && ~(X[1] & temp[0]) && X[1]), (~((X[1] & Y[1]) | (X[1] & temp[0])) && temp[0])
+  Row   5:          1  temp[0]_0             (~(X[1] & Y[1]) && X[1]), (~((X[1] & Y[1]) | (X[1] & temp[0])) && Y[1])
+  Row   6:          1  temp[0]_1             (~(Y[1] & temp[0]) && ~(X[1] & Y[1]) && X[1]), (~((X[1] & Y[1]) | (X[1] & temp[0])) && Y[1])
+
+-----------Focused Expression View (Bimodal)------------
+Line       89 Item    1  ((X[2] ^ Y[2]) ^ temp[1])
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage                  Hint
+ -----------  --------  --------------------------------------  --------------
+        X[2]         Y
+        Y[2]         Y
+     temp[1]         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           1  X[2]_0                -                                  
+ Row   2:           0           1  X[2]_1                -                                  
+ Row   3:           1           1  Y[2]_0                -                                  
+ Row   4:           0           1  Y[2]_1                -                                  
+ Row   5:           1           0  temp[1]_0             -                                  
+ Row   6:           0           1  temp[1]_1             -                                  
+
+----------------Focused Expression View-----------------
+Line       90 Item    1  (((X[2] & Y[2]) | (X[2] & temp[1])) | (Y[2] & temp[1]))
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        X[2]         Y
+        Y[2]         Y
+     temp[1]         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  X[2]_0                (~(Y[2] & temp[1]) && Y[2]), (~(Y[2] & temp[1]) && temp[1])
+  Row   2:          1  X[2]_1                (~(Y[2] & temp[1]) && ~(X[2] & temp[1]) && Y[2]), (~(Y[2] & temp[1]) && ~(X[2] & Y[2]) && temp[1])
+  Row   3:          1  Y[2]_0                (~(X[2] & temp[1]) && X[2]), (~((X[2] & Y[2]) | (X[2] & temp[1])) && temp[1])
+  Row   4:          1  Y[2]_1                (~(Y[2] & temp[1]) && ~(X[2] & temp[1]) && X[2]), (~((X[2] & Y[2]) | (X[2] & temp[1])) && temp[1])
+  Row   5:          1  temp[1]_0             (~(X[2] & Y[2]) && X[2]), (~((X[2] & Y[2]) | (X[2] & temp[1])) && Y[2])
+  Row   6:          1  temp[1]_1             (~(Y[2] & temp[1]) && ~(X[2] & Y[2]) && X[2]), (~((X[2] & Y[2]) | (X[2] & temp[1])) && Y[2])
+
+-----------Focused Expression View (Bimodal)------------
+Line       92 Item    1  ((X[3] ^ Y[3]) ^ temp[2])
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage                  Hint
+ -----------  --------  --------------------------------------  --------------
+        X[3]         Y
+        Y[3]         Y
+     temp[2]         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           0  X[3]_0                -                                  
+ Row   2:           0           1  X[3]_1                -                                  
+ Row   3:           1           1  Y[3]_0                -                                  
+ Row   4:           0           1  Y[3]_1                -                                  
+ Row   5:           1           1  temp[2]_0             -                                  
+ Row   6:           0           1  temp[2]_1             -                                  
+
+----------------Focused Expression View-----------------
+Line       93 Item    1  (((X[3] & Y[3]) | (X[3] & temp[2])) | (Y[3] & temp[2]))
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        X[3]         Y
+        Y[3]         Y
+     temp[2]         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  X[3]_0                (~(Y[3] & temp[2]) && Y[3]), (~(Y[3] & temp[2]) && temp[2])
+  Row   2:          1  X[3]_1                (~(Y[3] & temp[2]) && ~(X[3] & temp[2]) && Y[3]), (~(Y[3] & temp[2]) && ~(X[3] & Y[3]) && temp[2])
+  Row   3:          1  Y[3]_0                (~(X[3] & temp[2]) && X[3]), (~((X[3] & Y[3]) | (X[3] & temp[2])) && temp[2])
+  Row   4:          1  Y[3]_1                (~(Y[3] & temp[2]) && ~(X[3] & temp[2]) && X[3]), (~((X[3] & Y[3]) | (X[3] & temp[2])) && temp[2])
+  Row   5:          1  temp[2]_0             (~(X[3] & Y[3]) && X[3]), (~((X[3] & Y[3]) | (X[3] & temp[2])) && Y[3])
+  Row   6:          1  temp[2]_1             (~(Y[3] & temp[2]) && ~(X[3] & Y[3]) && X[3]), (~((X[3] & Y[3]) | (X[3] & temp[2])) && Y[3])
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      44        44         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for file DecMuxAdd2.v --
+
+    1                                                `timescale 1ns / 1ps
+    2                                                
+    3                                                module DecMuxAdd2(
+    4                                                    input [3:0] sel1,
+    5                                                    input en,
+    6                                                    input [3:0] a,
+    7                                                    input [3:0] b,
+    8                                                    input [3:0] c,
+    9                                                    input [3:0] d,
+    10                                                   input [3:0] sel2,
+    11                                                   input [3:0] X,
+    12                                                   input [3:0] Y,
+    13                                                   input Ci,
+    14                                                   output reg [15:0] decout,
+    15                                                   output reg [3:0] muxout,
+    16                                                   output [3:0] S,
+    17                                                   output Co
+    18                                                   );
+    19                                               	 
+    20                                               	 wire [2:0] temp;
+    21                                               	
+    22              1                      96897     	always @ (sel1, en)
+    23                                               	begin
+    24                                               		if (en == 0)
+    25              1                      48828     			decout <= 16'bXXXXXXXXXXXXXXXX;
+    26                                               		else if (sel1 == 4'b0000)
+    27              1                       2971     			decout <= 16'b0000000000000001;
+    28                                               		else if (sel1 == 4'b0001)
+    29              1                       2993     			decout <= 16'b0000000000000010;
+    30                                               		else if (sel1 == 4'b0010)
+    31              1                       3043     			decout <= 16'b0000000000000100;
+    32                                               		else if (sel1 == 4'b0011)
+    33              1                       2941     			decout <= 16'b0000000000001000;
+    34                                               		else if (sel1 == 4'b0100)
+    35              1                       3104     			decout <= 16'b0000000000010000;
+    36                                               		else if (sel1 == 4'b0101)
+    37              1                       2980     			decout <= 16'b0000000000100000;
+    38                                               		else if (sel1 == 4'b0110)
+    39              1                       3029     			decout <= 16'b0000000001000000;
+    40                                               		else if (sel1 == 4'b0111)
+    41              1                       2936     			decout <= 16'b0000000010000000;
+    42                                               		else if (sel1 == 4'b1000)
+    43              1                       3005     			decout <= 16'b0000000100000000;
+    44                                               		else if (sel1 == 4'b1001)
+    45              1                       2992     			decout <= 16'b0000001000000000;
+    46                                               		else if (sel1 == 4'b1010)
+    47              1                       3011     			decout <= 16'b0000010000000000;
+    48                                               		else if (sel1 == 4'b1011)
+    49              1                       3019     			decout <= 16'b0000100000000000;
+    50                                               		else if (sel1 == 4'b1100)
+    51              1                       2982     			decout <= 16'b0001000000000000;
+    52                                               		else if (sel1 == 4'b1101)
+    53              1                       3007     			decout <= 16'b0010000000000000;
+    54                                               		else if (sel1 == 4'b1110)
+    55              1                       3056     			decout <= 16'b0100000000000000;
+    56                                               		else
+    57              1                       3000     			decout <= 16'b1000000000000000;
+    58                                               	end
+    59                                               	
+    60              1                     100002     	always@ (a,b,c,d,sel2)
+    61                                               	begin
+    62                                               		case(sel2)
+    63              1                       6167     		 4'b0000 : muxout <= a;
+    64              1                       6297     		 4'b0001 : muxout <= b;
+    65              1                       6334     		 4'b0010 : muxout <= c;
+    66              1                       6202     		 4'b0011 : muxout <= d;
+    67              1                       6150     		 4'b0100 : muxout <= a&b;
+    68              1                       6353     		 4'b0101 : muxout <= a|b;
+    69              1                       6229     		 4'b0110 : muxout <= a&c;
+    70              1                       6222     		 4'b0111 : muxout <= a|c;	
+    71              1                       6317     		 4'b1000 : muxout <= a&d;
+    72              1                       6308     		 4'b1001 : muxout <= a|d;
+    73              1                       6264     		 4'b1010 : muxout <= b&c;
+    74              1                       6215     		 4'b1011 : muxout <= b|c;
+    75              1                       6281     		 4'b1100 : muxout <= b&d;
+    76              1                       6186     		 4'b1101 : muxout <= b|d;
+    77              1                       6326     		 4'b1110 : muxout <= c&d;
+    78              1                       6150     		 4'b1111 : muxout <= c|d;			 
+    79              1                          1     		 default : muxout <= 0;
+    80                                               		endcase
+    81                                               	end
+    82                                               	
+    83              1                      87496     	assign S[0]  = X[0] ^ Y[0] ^ Ci;
+    84              1                      87496     	assign temp[0] = (X[0] & Y[0]) | (X[0] & Ci) | (Y[0] & Ci);
+    85                                               	
+    86              1                     125072     	assign S[1] = X[1] ^ Y[1] ^ temp[0];
+    87              1                     125072     	assign temp[1] = (X[1] & Y[1]) | (X[1] & temp[0]) | (Y[1] & temp[0]);
+    88                                               	
+    89              1                     137694     	assign S[2] = X[2] ^ Y[2] ^ temp[1];
+    90              1                     137694     	assign temp[2] = (X[2] & Y[2]) | (X[2] & temp[1]) | (Y[2] & temp[1]);
+    91                                               	
+    92              1                     143899     	assign S[3] = X[3] ^ Y[3] ^ temp[2];
+    93              1                     143899     	assign Co = (X[3] & Y[3]) | (X[3] & temp[2]) | (Y[3] & temp[2]);
+    94                                               
+    95                                               endmodule
+    96                                               
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        124       124         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for File DecMuxAdd2.v --
+
+       Line                                   Node      1H->0L      0L->1H  "Coverage"
+--------------------------------------------------------------------------------------
+          4                                sel1[3]           1           1      100.00 
+          4                                sel1[2]           1           1      100.00 
+          4                                sel1[1]           1           1      100.00 
+          4                                sel1[0]           1           1      100.00 
+          5                                     en           1           1      100.00 
+          6                                   a[3]           1           1      100.00 
+          6                                   a[2]           1           1      100.00 
+          6                                   a[1]           1           1      100.00 
+          6                                   a[0]           1           1      100.00 
+          7                                   b[3]           1           1      100.00 
+          7                                   b[2]           1           1      100.00 
+          7                                   b[1]           1           1      100.00 
+          7                                   b[0]           1           1      100.00 
+          8                                   c[3]           1           1      100.00 
+          8                                   c[2]           1           1      100.00 
+          8                                   c[1]           1           1      100.00 
+          8                                   c[0]           1           1      100.00 
+          9                                   d[3]           1           1      100.00 
+          9                                   d[2]           1           1      100.00 
+          9                                   d[1]           1           1      100.00 
+          9                                   d[0]           1           1      100.00 
+         10                                sel2[3]           1           1      100.00 
+         10                                sel2[2]           1           1      100.00 
+         10                                sel2[1]           1           1      100.00 
+         10                                sel2[0]           1           1      100.00 
+         11                                   X[3]           1           1      100.00 
+         11                                   X[2]           1           1      100.00 
+         11                                   X[1]           1           1      100.00 
+         11                                   X[0]           1           1      100.00 
+         12                                   Y[3]           1           1      100.00 
+         12                                   Y[2]           1           1      100.00 
+         12                                   Y[1]           1           1      100.00 
+         12                                   Y[0]           1           1      100.00 
+         13                                     Ci           1           1      100.00 
+         14                              decout[9]           1           1      100.00 
+         14                              decout[8]           1           1      100.00 
+         14                              decout[7]           1           1      100.00 
+         14                              decout[6]           1           1      100.00 
+         14                              decout[5]           1           1      100.00 
+         14                              decout[4]           1           1      100.00 
+         14                              decout[3]           1           1      100.00 
+         14                              decout[2]           1           1      100.00 
+         14                              decout[1]           1           1      100.00 
+         14                             decout[15]           1           1      100.00 
+         14                             decout[14]           1           1      100.00 
+         14                             decout[13]           1           1      100.00 
+         14                             decout[12]           1           1      100.00 
+         14                             decout[11]           1           1      100.00 
+         14                             decout[10]           1           1      100.00 
+         14                              decout[0]           1           1      100.00 
+         15                              muxout[3]           1           1      100.00 
+         15                              muxout[2]           1           1      100.00 
+         15                              muxout[1]           1           1      100.00 
+         15                              muxout[0]           1           1      100.00 
+         16                                   S[3]           1           1      100.00 
+         16                                   S[2]           1           1      100.00 
+         16                                   S[1]           1           1      100.00 
+         16                                   S[0]           1           1      100.00 
+         17                                     Co           1           1      100.00 
+         20                                temp[2]           1           1      100.00 
+         20                                temp[1]           1           1      100.00 
+         20                                temp[0]           1           1      100.00 
+
+Total Node Count     =         62 
+Toggled Node Count   =         62 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (124 of 124 bins)
+
+
+Total Coverage By File (code coverage only, filtered view): 100.00%
+

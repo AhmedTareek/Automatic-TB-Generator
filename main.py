@@ -4,7 +4,7 @@ from VerilogParser import Parser, Module, If_statement
 from VerilogGenerator import Generator
 
 def main():
-    p1 = Parser("DecMuxAdd1.v")
+    p1 = Parser("DecMuxAdd2.v")
     mod = p1.modules
     print(mod[0])
     m1 = Module(mod[0])
