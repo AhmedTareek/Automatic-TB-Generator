@@ -95,6 +95,11 @@ class Generator:
                 file.write("            " + port.name + " = $random(seed);\n")
             file.write("        end\n")
 
+        file.write("\n      //Testing design behaviour against don't care inputs\n")
+        file.write("          #" + str(self.wait) + ";\n")
+        for port in self.Inputs:
+            file.write("            " + port.name + " = 1'bX;\n")
+
         file.write("\n      #" + str(self.wait) + ";\n")
         file.write("      $finish;\n  end\n")
 

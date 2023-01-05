@@ -1,0 +1,235 @@
+Coverage Report by file with details
+
+=================================================================================
+=== File: DecMuxAdd1.v
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                        10        10         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for file DecMuxAdd1.v --
+
+------------------------------------IF Branch------------------------------------
+    22                                     65538     Count coming in to IF
+    22              1                      32769     		if (en == 0)
+    24              1                       8192     		else if (sel1 == 2'b00)
+    26              1                       8192     		else if (sel1 == 2'b01)
+    28              1                       8192     		else if (sel1 == 2'b10)
+    30              1                       8193     		else
+Branch totals: 5 hits of 5 branches = 100.00%
+
+------------------------------------CASE Branch------------------------------------
+    36                                      8194     Count coming in to CASE
+    37              1                       2049     		 2'b00 : muxout=a;
+    38              1                       2048     		 2'b01 : muxout=b;
+    39              1                       2048     		 2'b10 : muxout=c;
+    40              1                       2048     		 2'b11 : muxout=d;
+                                               1     All False Count
+Branch totals: 5 hits of 5 branches = 100.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                       3         3         0   100.00%
+
+================================Condition Details================================
+
+Condition Coverage for file DecMuxAdd1.v --
+
+----------------Focused Condition View-------------------
+Line       24 Item    1  (sel1 == 0)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 0)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 0)_0         -                             
+  Row   2:          1  (sel1 == 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       26 Item    1  (sel1 == 1)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 1)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 1)_0         -                             
+  Row   2:          1  (sel1 == 1)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       28 Item    1  (sel1 == 2)
+Condition totals: 1 of 1 input term covered = 100.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (sel1 == 2)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (sel1 == 2)_0         -                             
+  Row   2:          1  (sel1 == 2)_1         -                             
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      6         6         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for file DecMuxAdd1.v --
+
+-----------Focused Expression View (Bimodal)------------
+Line       44 Item    1  ((X ^ Y) ^ Ci)
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage                  Hint
+ -----------  --------  --------------------------------------  --------------
+           X         Y
+           Y         Y
+          Ci         Y
+
+    Rows:   Hits(->0)   Hits(->1)  FEC Target            Non-masking condition(s)           
+
+---------  ----------  ----------  --------------------  -------------------------          
+ Row   1:           1           0  X_0                   -                                  
+ Row   2:           0           1  X_1                   -                                  
+ Row   3:           1           1  Y_0                   -                                  
+ Row   4:           0           1  Y_1                   -                                  
+ Row   5:           1           1  Ci_0                  -                                  
+ Row   6:           0           1  Ci_1                  -                                  
+
+----------------Focused Expression View-----------------
+Line       46 Item    1  (((X & Y) | (X & Ci)) | (Y & Ci))
+Expression totals: 3 of 3 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+           X         Y
+           Y         Y
+          Ci         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  X_0                   (~(Y & Ci) && Y), (~(Y & Ci) && Ci)
+  Row   2:          1  X_1                   (~(Y & Ci) && ~(X & Ci) && Y), (~(Y & Ci) && ~(X & Y) && Ci)
+  Row   3:          1  Y_0                   (~(X & Ci) && X), (~((X & Y) | (X & Ci)) && Ci)
+  Row   4:          1  Y_1                   (~(Y & Ci) && ~(X & Ci) && X), (~((X & Y) | (X & Ci)) && Ci)
+  Row   5:          1  Ci_0                  (~(X & Y) && X), (~((X & Y) | (X & Ci)) && Y)
+  Row   6:          1  Ci_1                  (~(Y & Ci) && ~(X & Y) && X), (~((X & Y) | (X & Ci)) && Y)
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      13        13         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for file DecMuxAdd1.v --
+
+    1                                                `timescale 1ns / 1ps
+    2                                                
+    3                                                module DecMuxAdd1(
+    4                                                    input [1:0] sel1,
+    5                                                    input en,
+    6                                                    input [1:0] a,
+    7                                                    input [1:0] b,
+    8                                                    input [1:0] c,
+    9                                                    input [1:0] d,
+    10                                                   input [1:0] sel2,
+    11                                                   input X,
+    12                                                   input Y,
+    13                                                   input Ci,
+    14                                                   output reg [3:0] decout,
+    15                                                   output reg [1:0] muxout,
+    16                                                   output S,
+    17                                                   output Co
+    18                                                   );
+    19                                               	
+    20              1                      65538     	always @ (sel1, en)
+    21                                               	begin
+    22                                               		if (en == 0)
+    23              1                      32769     			decout = 4'b1111;
+    24                                               		else if (sel1 == 2'b00)
+    25              1                       8192     			decout = 4'b1110;
+    26                                               		else if (sel1 == 2'b01)
+    27              1                       8192     			decout = 4'b1101;
+    28                                               		else if (sel1 == 2'b10)
+    29              1                       8192     			decout = 4'b1011;
+    30                                               		else
+    31              1                       8193     			decout = 4'b0111;
+    32                                               	end
+    33                                               	
+    34              1                       8194     	always@ (a,b,c,d,sel2)
+    35                                               	begin
+    36                                               		case(sel2)
+    37              1                       2049     		 2'b00 : muxout=a;
+    38              1                       2048     		 2'b01 : muxout=b;
+    39              1                       2048     		 2'b10 : muxout=c;
+    40              1                       2048     		 2'b11 : muxout=d;
+    41                                               		endcase
+    42                                               	end
+    43                                               	
+    44              1                         11     	assign S  = X ^ Y ^ Ci;
+    45                                               
+    46              1                         11     	assign Co = (X & Y) | (X & Ci) | (Y & Ci);
+    47                                               
+    48                                               endmodule
+    49                                               
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         48        48         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for File DecMuxAdd1.v --
+
+       Line                                   Node      1H->0L      0L->1H  "Coverage"
+--------------------------------------------------------------------------------------
+          4                                sel1[1]           1           1      100.00 
+          4                                sel1[0]           1           1      100.00 
+          5                                     en           1           1      100.00 
+          6                                   a[1]           1           1      100.00 
+          6                                   a[0]           1           1      100.00 
+          7                                   b[1]           1           1      100.00 
+          7                                   b[0]           1           1      100.00 
+          8                                   c[1]           1           1      100.00 
+          8                                   c[0]           1           1      100.00 
+          9                                   d[1]           1           1      100.00 
+          9                                   d[0]           1           1      100.00 
+         10                                sel2[1]           1           1      100.00 
+         10                                sel2[0]           1           1      100.00 
+         11                                      X           1           1      100.00 
+         12                                      Y           1           1      100.00 
+         13                                     Ci           1           1      100.00 
+         14                              decout[3]           1           1      100.00 
+         14                              decout[2]           1           1      100.00 
+         14                              decout[1]           1           1      100.00 
+         14                              decout[0]           1           1      100.00 
+         15                              muxout[1]           1           1      100.00 
+         15                              muxout[0]           1           1      100.00 
+         16                                      S           1           1      100.00 
+         17                                     Co           1           1      100.00 
+
+Total Node Count     =         24 
+Toggled Node Count   =         24 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (48 of 48 bins)
+
+
+Total Coverage By File (code coverage only, filtered view): 100.00%
+
